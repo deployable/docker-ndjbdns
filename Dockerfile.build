@@ -1,0 +1,12 @@
+from deployable/debian-build:8
+
+run set -uex ;\
+    cd /tmp ;\
+    curl http://pjp.dgplug.org/ndjbdns/ndjbdns-1.06.tar.gz > ndjbdns-1.06.tar.gz.tmp ;\
+    mv ndjbdns-1.06.tar.gz.tmp ndjbdns-1.06.tar.gz ;\
+    tar -xvzf ndjbdns-1.06.tar.gz ;\
+    cd ndjbdns-1.06 ;\
+    ./configure --prefix=/usr/local/ndjbdns-1.06 ;\
+    make -j1 ;\
+    make install
+
