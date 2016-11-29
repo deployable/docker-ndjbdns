@@ -11,8 +11,11 @@ NAME='ndjbdns'
 VERSION="1.06"
 PKG_NAME="ndjbdns-${VERSION}"
 PKG_FILE="${PKG_NAME}.tar.gz"
+PKG_BUILD_FILE=${PKG_NAME}-build.tar.gz
+PKG_BUILD_FILE_TMP=${PKG_BUILD_FILE}.tmp
 
 get(){
+  #curl http://pjp.dgplug.org/ndjbdns/${PKG_FILE} > "$rundir"/${PKG_FILE}.tmp
   wget -O "$rundir"/${PKG_FILE}.tmp http://pjp.dgplug.org/ndjbdns/${PKG_FILE}
   mv ${PKG_FILE}.tmp ${PKG_FILE}
 }
@@ -20,7 +23,9 @@ get(){
 
 build_build(){
   docker build -f Dockerfile.build -t "$SCOPE/$NAME-build" .
-  docker run "$SCOPE/$NAME-build" tar -cvzf - /usr/local/${PKG_NAME} > ${PKG_NAME}-build.tar.gz
+  # remove GZIP mod time header so checksums are consistant
+  docker run -e 'GZIP=-n' "$SCOPE/$NAME-build" tar -cvpzf - "/${NAME}" > "${PKG_BUILD_FILE_TMP}"
+  mv "${PKG_BUILD_FILE_TMP}" "${PKG_BUILD_FILE}"
 }
 
 build_app(){

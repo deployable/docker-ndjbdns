@@ -1,12 +1,14 @@
 from deployable/debian-build:8
 
+ENV NDJBDNS_VERSION=1.06
+
 run set -uex ;\
     cd /tmp ;\
-    curl http://pjp.dgplug.org/ndjbdns/ndjbdns-1.06.tar.gz > ndjbdns-1.06.tar.gz.tmp ;\
-    mv ndjbdns-1.06.tar.gz.tmp ndjbdns-1.06.tar.gz ;\
-    tar -xvzf ndjbdns-1.06.tar.gz ;\
-    cd ndjbdns-1.06 ;\
-    ./configure --prefix=/usr/local/ndjbdns-1.06 ;\
+    curl http://pjp.dgplug.org/ndjbdns/ndjbdns-${NDJBDNS_VERSION}.tar.gz > ndjbdns-${NDJBDNS_VERSION}.tar.gz.tmp ;\
+    mv ndjbdns-${NDJBDNS_VERSION}.tar.gz.tmp ndjbdns-${NDJBDNS_VERSION}.tar.gz ;\
+    tar -xvzf ndjbdns-${NDJBDNS_VERSION}.tar.gz ;\
+    cd ndjbdns-${NDJBDNS_VERSION} ;\
+    ./configure --prefix=/ndjbdns ;\
     make -j1 ;\
     make install
 
