@@ -1,5 +1,7 @@
 from deployable/debian-build:8
 
+# Creates an image with all the build tools
+
 ENV NDJBDNS_VERSION=1.06
 
 run set -uex ;\
