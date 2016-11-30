@@ -1,4 +1,4 @@
-from d/ndjbdns-app
+from deployable/ndjbdns:app
 
 copy tinydns/data /ndjbdns/etc/ndjbdns/
 copy tinydns/ip /ndjbdns/etc/ndjbdns/
