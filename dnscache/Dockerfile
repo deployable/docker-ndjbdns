@@ -1,4 +1,4 @@
-from deployable/ndjbdns:app
+from deployable/ndjbdns:latest
 
 copy dnscache/dnscache.conf /ndjbdns/etc/ndjbdns/
 copy dnscache/ip /ndjbdns/etc/ndjbdns/ip
