@@ -1,8 +1,8 @@
 from deployable/ndjbdns:latest
 
-copy tinydns/data /ndjbdns/etc/ndjbdns/
-copy tinydns/ip /ndjbdns/etc/ndjbdns/
-copy tinydns/tinydns.conf /ndjbdns/etc/ndjbdns/
+copy data /ndjbdns/etc/ndjbdns/
+copy ip /ndjbdns/etc/ndjbdns/
+copy tinydns.conf /ndjbdns/etc/ndjbdns/
 
 run set -uex; \
     find /ndjbdns; \
