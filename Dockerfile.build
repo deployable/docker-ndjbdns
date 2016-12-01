@@ -1,6 +1,6 @@
 from deployable/debian-build:8
 
-# Creates an image with all the build tools
+# Builds the ndjbdns package
 
 ENV NDJBDNS_VERSION=1.06
 
