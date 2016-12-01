@@ -5,11 +5,10 @@ copy ip /ndjbdns/etc/ndjbdns/
 copy tinydns.conf /ndjbdns/etc/ndjbdns/
 
 run set -uex; \
-    find /ndjbdns; \
     cd /ndjbdns/etc/ndjbdns; \
     /ndjbdns/bin/tinydns-data
 
-copy tinydns/entrypoint.sh /ndjbdns/bin/entrypoint.sh
+copy entrypoint.sh /ndjbdns/bin/entrypoint.sh
 entrypoint ["/ndjbdns/bin/entrypoint.sh"]
 cmd ["tinydns"]
 
