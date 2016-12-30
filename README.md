@@ -20,7 +20,7 @@ The `dnscache config is stored in `./dnscache`
 
 ## Running tinydns and dnscache
 
-If you need to run both services, you will need multiple IP addresses. Creating alias service addresses on loopback is an one way to achieve this for local use. 
+If you need to run both services, you will need multiple IP addresses. Creating alias service addresses on loopback is an one way to achieve this for local use. `docker-compose.yml` provides an example running tinydns on 10.8.9.8 and dnscache on 10.8.10.8
 
 ## Build
 
