@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+  tinydns:
+    build:
+      dockerfile: tinydns/Dockerfile
+      context: .
+#    image: deployable/ndjbdns-tinydns
+#    volumes:
+#      - 'tinydns-data:'
+    ports:
+      - '10.8.9.8:53:53/udp'
+      - '10.8.9.8:53:53/tcp'
+    networks:
+      - inside
+    mem_limit: 10000000
+
+  dnscache: 
+    build:
+      dockerfile: dnscache/Dockerfile
+      context: .
+#    volumes:
+#      - 'dnscache-data:'
+#    image: deployable/ndjbdns-dnscache
+    ports:
+      - '10.8.10.8:53:53/udp'
+      - '10.8.10.8:53:53/tcp'
+    networks:
+      - inside
+    mem_limit: 10000000
+
+
+networks:
+  inside:
+    driver: bridge
+
+#labels:
+#  co.deployable.description: Local DNS
+
+#volumes:
+#  dnscache-data:
+#  tinydns-data:
