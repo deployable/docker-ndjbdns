@@ -3,8 +3,7 @@ version: '2'
 services:
   tinydns:
     build:
-      dockerfile: tinydns/Dockerfile
-      context: .
+      context: tinydns/
 #    image: deployable/ndjbdns-tinydns
 #    volumes:
 #      - 'tinydns-data:'
@@ -17,8 +16,7 @@ services:
 
   dnscache: 
     build:
-      dockerfile: dnscache/Dockerfile
-      context: .
+      context: dnscache/
 #    volumes:
 #      - 'dnscache-data:'
 #    image: deployable/ndjbdns-dnscache
