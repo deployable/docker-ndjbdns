@@ -1,1 +1,5 @@
 # djbdns https://cr.yp.to/djbdns/tinydns-data.html
+.localunixsocket.lan:10.8.9.8:a
+=localunixsocket.lan:127.0.0.1:259200
+.localunixsocket:10.8.9.8:a
+=localunixsocket:127.0.0.1:259200
