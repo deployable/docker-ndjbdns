@@ -31,15 +31,17 @@ build_build(){
 }
 
 build_app(){
-  docker build -f Dockerfile.app -t "${SCOPE_NAME}-app" "$rundir"
+  docker build -f Dockerfile.app -t "${SCOPE_NAME}" "$rundir"
 }
 
 build_dnscache(){
-  docker build -f dnscache/Dockerfile -t "${SCOPE_NAME}-dnscache" "$rundir"
+  cd "$rundir"/dnscache
+  docker build -t "${SCOPE_NAME}-dnscache" .
 }
 
 build_tinydns(){
-  docker build -f tinydns/Dockerfile -t "${SCOPE_NAME}-tinydns" "$rundir"
+  cd "$rundir"/tinydns
+  docker build -t "${SCOPE_NAME}-tinydns" .
 }
 
 build(){
@@ -49,6 +51,17 @@ build(){
   build_tinydns
 }
 
+push(){
+  docker push "${SCOPE_NAME}"
+  docker push "${SCOPE_NAME}-tinydns"
+  docker push "${SCOPE_NAME}-dnscache"
+}
+
+help(){
+  set +x
+  echo "Available commands:"
+  compgen -A function | awk '{print " ",$0}'
+}
 
 ARG=${1:-build}
 $ARG
