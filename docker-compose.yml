@@ -7,10 +7,11 @@ services:
 #      - 'tinydns-data:'
     ports:
       - '10.8.9.8:53:53/udp'
-      - '10.8.9.8:53:53/tcp'
+#      - '10.8.9.8:53:53/tcp'
     networks:
       - inside
     mem_limit: 10000000
+    restart: always
 
   dnscache: 
     image: deployable/ndjbdns-dnscache
@@ -18,11 +19,10 @@ services:
 #      - 'dnscache-data:'
     ports:
       - '10.8.10.8:53:53/udp'
-      - '10.8.10.8:53:53/tcp'
     networks:
       - inside
     mem_limit: 10000000
-
+    restart: always
 
 networks:
   inside:
