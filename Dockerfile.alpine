@@ -1,0 +1,39 @@
+from alpine:3.4
+
+# Builds the ndjbdns package
+
+#common.c:72:1: error: conflicting types for 'getline'
+# getline (char **lineptr, ssize_t *n, FILE *stream)
+# ^
+#In file included from common.c:28:0:
+#/usr/include/stdio.h:148:9: note: previous declaration of 'getline' was here
+# ssize_t getline(char **__restrict, size_t *__restrict, FILE *__restrict);
+#         ^
+#common.c: In function 'read_conf':
+#common.c:208:41: warning: pointer targets in passing argument 2 of 'getline' differ in signedness [-Wpointer-sign]
+#     while ((signed)(n = getline (&line, &l, fp)) != -1)
+#                                         ^
+#common.c:72:1: note: expected 'ssize_t * {aka long int *}' but argument is of type 'size_t * {aka long unsigned int *}'
+# getline (char **lineptr, ssize_t *n, FILE *stream)
+# ^
+#make[2]: *** [common.o] Error 1
+
+
+ARG DOCKER_BUILD_PROXY=""
+ENV NDJBDNS_VERSION=1.06
+
+run set -uex; \
+    export http_proxy=$DOCKER_BUILD_PROXY; \
+    apk update; \
+    apk add curl make gcc g++; \
+    export http_proxy=; \
+    cd /tmp; \
+    curl --progress-bar http://pjp.dgplug.org/ndjbdns/ndjbdns-${NDJBDNS_VERSION}.tar.gz > ndjbdns-${NDJBDNS_VERSION}.tar.gz.tmp; \
+    mv ndjbdns-${NDJBDNS_VERSION}.tar.gz.tmp ndjbdns-${NDJBDNS_VERSION}.tar.gz; \
+    tar -xvzf ndjbdns-${NDJBDNS_VERSION}.tar.gz; \
+    cd ndjbdns-${NDJBDNS_VERSION}; \
+    ./configure --prefix=/ndjbdns; \
+    make -j1; \
+    make install; \
+    apk del curl make gcc g++;
+
