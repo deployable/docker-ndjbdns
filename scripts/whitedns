@@ -23,8 +23,8 @@ fi
 
 printf "${ndjbdns_external_cache}\n" > $file_dst
 
-#     matt ALL = NOPASSWD: /Users/matt/bin/restartdns
-sudo /Users/matt/bin/restartdns
+#     {$user} ALL = NOPASSWD: {$rundir}/restartdns
+sudo "$rundir"/restartdns
 
 echo "dnscache restarted with new $whom config added to whitelist"
 
