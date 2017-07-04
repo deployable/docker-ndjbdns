@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -uex
+
+rundir=${0%/*}
+whom=${1:-}
+
+. "$rundir"/.ndjbdns
+
+file_dst="$ndjbdns_path_server/$whom"
+
+if [ -f "$file_dst" ]; then
+  domain_server=$(cat "$file_dst")
+  if [ "$domain_server" != "$ndjbdns_blackhole" -a "$domain_server" != "$ndjbdns_external_cache" ]; then
+    error "Domain has servers other than blackhole or external cache [$domain_server]"
+  fi
+fi
+
+printf "${ndjbdns_local_host}\n" > $file_dst
+sudo pkill dnscache
+
+echo "dnscache restarted with new $whom config removed"
+

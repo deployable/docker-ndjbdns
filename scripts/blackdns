@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -uex
+
+rundir=${0%/*}
+whom=$1
+
+. "$rundir"/.ndjbdns
+
+file_dst="$ndjbdns_path_server/$whom"
+
+if [ -f "$file_dst" ]; then
+  printf "Error: Config already exists for $whom [%s]" "$file_dst"
+  exit 1
+fi
+
+printf "%s\n" "$ndjbdns_blackhole" > "$file_dst"
+sudo pkill dnscache
+
+echo "dnscache restarted with new $whom config"
+

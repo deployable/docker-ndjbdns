@@ -1,0 +1,20 @@
+ndjbdns_path="/usr/local/etc/ndjbdns"
+ndjbdns_path_server="${ndjbdns_path}/servers"
+ndjbdns_file_roots="${ndjbdns_path_server}/roots"
+ndjbdns_blackhole=10.8.11.8
+ndjbdns_local_host=10.8.9.8
+ndjbdns_local_cache=10.8.10.8
+ndjbdns_external_cache="8.8.8.8
+8.8.4.4"
+
+error(){
+  echo "Error $@"
+  exit 1
+}
+
+# supervisor starts again
+restart_dns(){
+  sudo dscacheutil -flushcache
+  sudo killall -HUP mDNSResponder
+  sudo pkill dnscache 
+}

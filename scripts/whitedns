@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -uex
+
+rundir=${0%/*}
+whom_arg=${1:-}
+whom_trim=${whom_arg#*://}
+whom=${whom_trim%%/*}
+if [ "$whom" != "$whom_arg" ]; then
+  echo "Trimmed domain to [$whom]"
+fi
+
+. "$rundir"/.ndjbdns
+
+file_dst="$ndjbdns_path_server/$whom"
+
+if [ -f "$file_dst" ]; then
+  domain_server=$(cat "$file_dst")
+  if [ "$domain_server" != "$ndjbdns_blackhole" ]; then
+    error "Domain has servers other than blackhole [$domain_server]"
+  fi
+fi
+
+printf "${ndjbdns_external_cache}\n" > $file_dst
+
+#     matt ALL = NOPASSWD: /Users/matt/bin/restartdns
+sudo /Users/matt/bin/restartdns
+
+echo "dnscache restarted with new $whom config added to whitelist"
+

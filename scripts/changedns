@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -uex
+
+whom=$1
+path="/usr/local/etc/ndjbdns"
+path_server="$path/servers"
+file_dst="$path_server/roots"
+file_src="${file_dst}.${whom}"
+
+if [ ! -f "$file_src" ]; then
+  echo "Error: No source file to copy [$file_src]" 
+  ls -1 "$path_server" | grep '^roots\.'
+  exit 1
+fi
+
+cp "$file_src" "$file_dst"
+
+sudo pkill dnscache
+
+echo "dnscache restarted with new config"

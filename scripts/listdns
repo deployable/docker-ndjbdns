@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -ue
+
+rundir=${0%/*}
+whom=${1:-}
+
+. "$rundir"/.ndjbdns
+
+cd $ndjbdns_path_server
+
+echo "== blackhole =="
+grep -l "$ndjbdns_blackhole" *
+echo
+echo "== local =="
+grep -l "$ndjbdns_local_host" *
+echo
+echo "== ext =="
+grep -l "$ndjbdns_external_cache" *
+echo
+echo "== all =="
+ls 
