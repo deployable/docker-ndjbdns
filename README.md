@@ -6,6 +6,8 @@ You DNS data and config will need to be overlayed on top of this image.
 
 Either mount `/ndjbdns/etc` or build a new image `FROM deployable/ndjbdns-tinydns` including your config.
 
+ndbjbdns can be a bit buggy, also try [unbound](https://github.com/deployable/docker-unbound)
+
 ## tinydns
 
 The `tinydns` config is stored in `./tinydns`
@@ -33,3 +35,7 @@ The `make.sh` script will create a "build" image to build the app and a common "
 - [deployable/ndjbdns](https://hub.docker.com/r/deployable/ndjbdns/)
 - [deployable/ndjbdns-tinydns](https://hub.docker.com/r/deployable/ndjbdns-tinydns/)
 - [deployable/ndjbdns-dnscache](https://hub.docker.com/r/deployable/ndjbdns-dnscache/)
+
+
+### DNS
+
